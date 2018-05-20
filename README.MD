@@ -5,7 +5,6 @@
 An application to keep track of a down event, e.g. Environments.
 
 ![Simple](screenShot_1.png)
-![Detailed](screenShot_2.png)
 
 Dependencies
 ------------
