@@ -2,10 +2,9 @@
 
 # downtrack
 
-An application to keep track of countries that you have visited. The application visualizes the visited countries both as a list, along with a ratio for each continent, and as a world map displaying the output in the UNIX terminal.
+An application to keep track of a down event, e.g. Environments.
 
 ![Simple](screenShot_1.png)
-![Detailed](screenShot_2.png)
 
 Dependencies
 ------------
@@ -35,26 +34,26 @@ Install
 
 To clone the repository you should have Git installed. Just run:
 
-	$ git clone https://github.com/asabreu/footin
+	$ git clone https://github.com/asabreu/downtrack
 
 To build the application, run `make`.
 
-If build was successful, you should get a `footin` binary.
+If build was successful, you should get a `downtrack` binary.
 
-#### Installation of development packages for `gdbm`
+#### Installation of development packages for `sqlite3`
 
 **macOS X with `Homebrew`:**
 
 ```
 bash
-    brew instal gdbm
+    brew instal sqlite
 ```
 
 **Debian & Ubuntu Linux:**
 
 ```
 bash
-    sudo apt-get install libgdbm-dev libgdbm3    
+    sudo apt-get install sqlite3 libsqlite3-dev    
 ```
 
 Usage
@@ -63,30 +62,22 @@ Usage
 The syntax is quite simple:
 
 ```
-usage: footin [-d | -w | -h] [-a | -r] 'iso country code' ...
+usage: downtrack [-r | -h] [-d | -u] 'event' <'reason'> ...
 
-without option, display stored countries coverage list.
+without option, display if exists status for down events with since date/time information.
 
 with option:
-	-d	Display stored countries coverage with detailed list.
-	-w	Wipe stored countries coverage list, the user is prompted for confirmation. 
+	-r	Display detailed report.
 	-h	Display this usage help.
 
-	-a	Add country using ISO 3166-2 or ISO 3166-3 country code.
-	-r	Remove country using ISO 3166-2 or ISO 3166-3 country code.
+	-d	Add down event entry.
+	-u	Update down event if exists with up state.
 ```
 
 To-Do
 -----
 
-- [x] Wipe database option (-w)
-- [x] Detailed list option (-d)
-- [ ] Map visualization
-- [ ] Batch load of countries
-
-Donations
----------
-
- If you want to support this project, please consider donating:
- 
- * PayPal: [asabreu@yahoo.com](https://www.paypal.me/asabreu)
+- [x] Display status
+- [x] Add down event entry (-d)
+- [x] Set up state for existing down event entry (-u)
+- [ ] Generate report
