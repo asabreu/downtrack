@@ -30,7 +30,7 @@ void initialize_db() {
 
    sql = "CREATE TABLE IF NOT EXISTS log ( \
 	id INTEGER PRIMARY KEY AUTOINCREMENT, \
-	env TEXT NOT NULL, \
+	event TEXT NOT NULL, \
 	start INTEGER NOT NULL, \
 	end INTEGER, \
 	reason TEXT)";
@@ -49,14 +49,14 @@ void close_db() {
    sqlite3_close(pDb);
 }
 
-bool insert_down(char *env, char *reason) {
+bool insert_down(char *event, char *reason) {
 	sqlite3_stmt *pStmt;
-	const char *sql = "INSERT INTO log (env, start, reason) VALUES (:env, datetime('now','localtime'), :reason)";
+	const char *sql = "INSERT INTO log (event, start, reason) VALUES (:event, datetime('now','localtime'), :reason)";
 
 	sqlite3_prepare_v2(pDb, sql, strlen(sql), &pStmt, NULL);
 
- 	const int index1 = sqlite3_bind_parameter_index(pStmt, ":env");
-        sqlite3_bind_text(pStmt, index1, (const char*)env, -1, SQLITE_STATIC);
+ 	const int index1 = sqlite3_bind_parameter_index(pStmt, ":event");
+        sqlite3_bind_text(pStmt, index1, (const char*)event, -1, SQLITE_STATIC);
 
 	const int index2 = sqlite3_bind_parameter_index(pStmt, ":reason");
 	sqlite3_bind_text(pStmt, index2, (const char*)reason, -1, SQLITE_STATIC); 
@@ -73,14 +73,14 @@ bool insert_down(char *env, char *reason) {
 	return success;
 }
 
-bool update_up(char *env) {
+bool update_up(char *event) {
  	sqlite3_stmt *pStmt;
-        const char *sql = "UPDATE log SET end = datetime('now','localtime') WHERE env = (:env)";
+        const char *sql = "UPDATE log SET end = datetime('now','localtime') WHERE event = (:event)";
 
         sqlite3_prepare_v2(pDb, sql, strlen(sql), &pStmt, NULL);
 
-        const int index = sqlite3_bind_parameter_index(pStmt, ":env");
-        sqlite3_bind_text(pStmt, index, (const char*)env, -1, SQLITE_STATIC);
+        const int index = sqlite3_bind_parameter_index(pStmt, ":event");
+        sqlite3_bind_text(pStmt, index, (const char*)event, -1, SQLITE_STATIC);
 
 	bool success = true;
 
@@ -99,7 +99,7 @@ void get_status() {
    	char *zErrMsg = 0;
    	char *sql;	
 
-	sql = "SELECT env, start, reason, Cast ((julianday('now','localtime') - julianday(start)) * 24 * 60 As Integer) FROM log WHERE end IS NULL";
+	sql = "SELECT event, start, reason, Cast ((julianday('now','localtime') - julianday(start)) * 24 * 60 As Integer) FROM log WHERE end IS NULL";
         
     	rc = sqlite3_exec(pDb, sql, callback, 0, &zErrMsg);
     
@@ -115,12 +115,12 @@ void get_status() {
 int callback(void *NotUsed, int argc, char **argv, char **azColName) {
 	NotUsed = 0;
 
-	char *env =  argv[0] ? argv[0] : NULL; 
+	char *event =  argv[0] ? argv[0] : NULL; 
 	char *start =  argv[1] ? argv[1] : NULL;
 	char *reason =  argv[2] ? argv[2] : NULL;
 	char *elapsed = argv[3] ? argv[3] : "";
 	
-	printf(KCYAN "%s" KRESET, env);
+	printf(KCYAN "%s" KRESET, event);
 	printf("\t");
 	printf(KBROWN "%s" KRESET, start);
 	printf(" (%sm)", elapsed);

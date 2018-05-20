@@ -27,15 +27,15 @@ int main(int argc, char *argv[]) {
 
 		case Down:
 		{
-			char *env = argv[2];
+			char *event = argv[2];
 			char *reason = NULL;
 			if (argc == 4) {
 				reason = argv[3];
 			}
 
-			convert_to_uppercase(env);
-			update_up(env);
-			if (insert_down(env, reason) == true) {
+			convert_to_uppercase(event);
+			update_up(event);
+			if (insert_down(event, reason) == true) {
 				display_status();
 			}
 		}
@@ -43,9 +43,9 @@ int main(int argc, char *argv[]) {
 		
 		case Up:
 		{
-			char *env = argv[2];
-                        convert_to_uppercase(env);
-			if (update_up(env) == true) {
+			char *event = argv[2];
+                        convert_to_uppercase(event);
+			if (update_up(event) == true) {
 				display_status();
 			}
 		}
