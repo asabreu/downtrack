@@ -15,12 +15,20 @@ int callback(void *, int, char **, char **);
 
 sqlite3 *pDb;
 
+char * get_db_path() {
+	int MAX_PATH = 256;
+	char path[MAX_PATH];
+	snprintf(path, MAX_PATH, "%s/%s", getenv("HOME"), db_name);
+
+	return strdup(path);
+}
+
 void initialize_db() {
    int rc;
    char *zErrMsg = 0;
    char *sql;
    
-   rc = sqlite3_open_v2(db_name, &pDb, SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE, NULL);
+   rc = sqlite3_open_v2(get_db_path(), &pDb, SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE, NULL);
 
    if (rc) {
       fprintf(stderr, "Can't open database: %s\n", sqlite3_errmsg(pDb));
