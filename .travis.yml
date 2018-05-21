@@ -2,5 +2,5 @@ before_install:
   - sudo apt-get -qq update
   - sudo apt-get install sqlite3 libsqlite3-dev 
 language: c
-compiler: gcc
+compiler: cc
 script: make
