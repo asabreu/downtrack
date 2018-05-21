@@ -3,8 +3,7 @@
 
 typedef enum { false, true } bool;
 
-static const char * db_name = ".downtrack.db";
-char * get_db_path();
+char *get_db_path();
 
 void initialize_db();
 void close_db();

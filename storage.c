@@ -11,11 +11,13 @@
 #define KCYAN			"\x1B[36m"
 #define KRED			"\x1B[31m"
 
+static const char *db_name = ".downtrack.db";
+
 int callback(void *, int, char **, char **);
 
 sqlite3 *pDb;
 
-char * get_db_path() {
+char *get_db_path() {
 	int MAX_PATH = 256;
 	char path[MAX_PATH];
 	snprintf(path, MAX_PATH, "%s/%s", getenv("HOME"), db_name);
