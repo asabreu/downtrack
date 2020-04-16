@@ -19,7 +19,3 @@ jobs:
         sudo apt-get install sqlite3 libsqlite3-dev          
     - name: make
       run: make
-    - name: make check
-      run: make check
-    - name: make distcheck
-      run: make distcheck
