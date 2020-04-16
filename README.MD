@@ -1,5 +1,3 @@
-[![Build Status](https://travis-ci.org/asabreu/downtrack.svg?branch=master)](https://travis-ci.org/asabreu/downtrack)
-
 # downtrack
 
 An application to keep track of a down event, e.g. Environments.
