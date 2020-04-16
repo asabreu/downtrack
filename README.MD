@@ -1,3 +1,5 @@
+![C/C++ CI](https://github.com/asabreu/downtrack/workflows/C/C++%20CI/badge.svg)
+
 # downtrack
 
 An application to keep track of a down event, e.g. Environments.
